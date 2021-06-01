@@ -1,3 +1,20 @@
 # one_private_project
 LanZhou University data science 2021 CI 102/103 project
 Created by TianYi Wang(project manager)
+## 预览
+由于兰州大学校园内的防火墙限制，此网站目前只能在校园内网范围内访问，连接内网后直接输入网址 http://project.childishliittlecherry.top/ 即可访问。
+
+
+## 前端
+使用Vue.js
+## 后端
+使用Django
+
+
+## 反向代理
+使用nginx做反向代理和负载均衡
+
+
+
+## 附
+(由于此仓库为期末大作业，将在大作业成绩出来后上传代码)
