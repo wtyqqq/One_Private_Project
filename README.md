@@ -10,7 +10,9 @@ Created by TianYi Wang(project manager)
 ## 后端
 使用Django
 
-
+## 框架
+框架采用开源的Vue+Django的框架，并使用google新推出的PWA模式。
+框架链接：https://github.com/kevinqqnj/django-vue-template
 ## 反向代理
 使用nginx做反向代理和负载均衡
 
