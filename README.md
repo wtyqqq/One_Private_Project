@@ -15,7 +15,7 @@ Created by TianYi Wang(project manager)
 框架链接：https://github.com/kevinqqnj/django-vue-template
 ## 反向代理
 使用nginx做反向代理和负载均衡
-    
+
 ## 附
 (由于此仓库为期末大作业，将在大作业成绩出来后上传代码)
 
@@ -24,3 +24,15 @@ Created by TianYi Wang(project manager)
 ### 王天一
 #### nginx_configuration
 反向代理的配置文件
+#### 项目协调
+
+#### server_configuration
+服务器配置
+### 刘林昊
+#### 后端
+
+### 禹中元
+#### 后端
+
+### 王琛
+### 廖冀远
