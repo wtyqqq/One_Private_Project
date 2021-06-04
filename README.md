@@ -28,6 +28,19 @@ Created by TianYi Wang(project manager)
 
 #### server_configuration
 服务器配置
+#### fixed_bugs
+##### bug_1_keyerror(uid)
+初次测试运行时，发生了keyerror的错误
+![avatar](bugs/bug_1_keyerror(uid).png)
+后将
+    ```python
+    response['uid'] = request.session('uid')
+    ```
+改为
+    ```python 
+    response['uid'] = request.session.get('uid',None)
+    ```
+后正常运行
 ### 刘林昊
 #### 后端
 
@@ -36,3 +49,4 @@ Created by TianYi Wang(project manager)
 
 ### 王琛
 ### 廖冀远
+
