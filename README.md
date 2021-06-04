@@ -26,18 +26,24 @@ Created by TianYi Wang(project manager)
 反向代理的配置文件
 #### 项目协调
 
-#### server_configuration
-服务器配置
+#### server_configuration 服务器配置
+经我们测试，此项目可以在以下环境中运行：
+
+MySQL 10.3.27   
+Python 3.7.3  
+Django 2.1.4  
+Nginx 1.14.2 (为了实现最好的负载均衡功能，建议在服务器上下载源码自己编译安装)
+
 #### fixed_bugs
 ##### bug_1_keyerror(uid)
-初次测试运行时，发生了keyerror的错误
+初次测试运行时，发生了keyerror的错误 
 ![avatar](bugs/bug_1_keyerror(uid).png)
-后将
-    ```python
-    response['uid'] = request.session('uid')
+后将  
     ```
-改为
-    ```python 
+    response['uid'] = request.session('uid')
+    ``` 
+改为 
+    ```
     response['uid'] = request.session.get('uid',None)
     ```
 后正常运行
