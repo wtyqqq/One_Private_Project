@@ -1,8 +1,8 @@
-# one_private_project
+# One_Private_Project
 LanZhou University data science 2021 CI 102/103 project
 Created by TianYi Wang(project manager)
 ## 预览
-由于兰州大学校园内的防火墙限制，此网站目前只能在校园内网范围内访问，连接内网后直接输入网址 http://project.childishliittlecherry.top/ 即可访问。
+由于兰州大学校园内的防火墙限制，此网站目前只能在校园内网范围内访问，连接内网后直接输入网址 https://project.childishliittlecherry.top/ 即可访问。
 
 
 ## 前端
