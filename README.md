@@ -4,15 +4,11 @@ Created by TianYi Wang(project manager)
 ## 预览
 由于兰州大学校园内的防火墙限制，此网站目前只能在校园内网范围内访问，连接内网后直接输入网址 https://project.childishliittlecherry.top/ 即可访问。
 
-
-## 前端
-使用Vue.js
 ## 后端
 使用Django
 
 ## 框架
-框架采用开源的Vue+Django的框架，并使用google新推出的PWA模式。
-框架链接：https://github.com/kevinqqnj/django-vue-template
+框架采用Django的框架
 ## 反向代理
 使用nginx做反向代理和负载均衡
 
@@ -56,9 +52,10 @@ Nginx 1.14.2 (为了实现最好的负载均衡功能，建议在服务器上下
 后正常运行
 ### 刘林昊
 #### 后端
-
+负责了大部分的后端功能的编写
 ### 禹中元
 #### 后端
+负责了大部分的后端功能的编写
 
 ### 王琛
 ### 廖冀远
