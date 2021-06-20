@@ -8,11 +8,6 @@ class User(models.Model):
     uid = models.CharField(verbose_name='电话/用户号', max_length=16, unique=True)
     password = models.CharField(verbose_name='密码', max_length=16)
     create_time = models.DateField(verbose_name='创建时间', auto_now_add=True)
-    sex = models.BooleanField(verbose_name='性别', blank=True,null=True)  # 男为1,女为0,null就为未知(不要问我为什么hhhh)
-    area = models.TextField(verbose_name='地区', blank=True,null=True)
-    email = models.EmailField(verbose_name='电子邮箱', blank=True,null=True)
-    age=models.PositiveIntegerField(verbose_name='年龄',blank=True,null=True)
-
 
 
 # 帖子表

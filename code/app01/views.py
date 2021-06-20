@@ -1,8 +1,8 @@
+from django.contrib.auth import authenticate
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from app01 import models
 import json
-import numpy as np
 
 
 # Create your views here.
@@ -11,7 +11,6 @@ import numpy as np
 def home(request):
     if request.method == 'GET':
         response = {}
-
         # top 10（公告）的处理，筛选10个也要改
         announcements = models.Announcement.objects.filter()
         # 把这10个公告封装成字典
@@ -22,7 +21,7 @@ def home(request):
         # 把列表装进回复字典里
         n = 10 if len(a_list) < 10 else len(a_list)
 
-        response['a_list'] = a_list[::-1][0:n - 1]
+        response['a_list'] = a_list[::-1][0:n-1]
 
         # 帖子推荐列表，推荐8个帖子，推荐8个要改
         recommends = models.Topic.objects.filter(recommend=True)
@@ -36,7 +35,7 @@ def home(request):
         response['r_list'] = r_list
 
         # 把uid装进返回字典里
-        response['uid'] = request.session.get('uid', None)
+        response['uid'] = request.session.get('uid',None)
 
         # 把所有类别装入返回字典里
         kinds = models.Kind.objects.filter()
@@ -91,18 +90,18 @@ def all_tie(request, kid, reply_limit, time_limit):
             # 筛选发布时间
             tmp = []
             for topic in topics:
-                if time_limit == '0':  # 0是全部时间
+                if time_limit == '0': # 0是全部时间
                     pass
-                elif time_limit == '1':  # 1是1个月内
+                elif time_limit == '1':   # 1是1个月内
                     # 如果在限制之前，就筛掉
                     pass
-                elif time_limit == '2':  # 2是3个月内
+                elif time_limit == '2':   # 2是3个月内
                     # 如果在限制之前，就筛掉
                     pass
-                elif time_limit == '3':  # 3是6个月内
+                elif time_limit == '3':   # 3是6个月内
                     # 如果在限制之前，就筛掉
                     pass
-                elif time_limit == '4':  # 4是1年内
+                elif time_limit == '4':   # 4是1年内
                     # 如果在限制之前，就筛掉
                     pass
                 tmp.append(topic)
@@ -158,6 +157,7 @@ def login(request):
             return HttpResponse(json.dumps(response))
 
 
+
 # 注册
 def register(request):
     if request.method == 'POST':
@@ -167,6 +167,8 @@ def register(request):
         if len(models.User.objects.filter(uid=uid)) != 0:
             # 已被创建，返回错误
             return render(request, 'login.html', {'message': '用户名已被创建'})
+        elif pwd <= 8:
+            return render(request, 'login.html', {'message': '密码需大于八位'})
         else:
             # 插入数据
             user = {
@@ -187,6 +189,10 @@ def publish(request):
         return render(request, 'publish.html', response)
     elif request.method == 'POST':
         # session获取uid
+
+        if request.session.get('uid') is None:
+            return redirect('/error/')
+
         uid = request.session['uid']
         # 提交发布的文章
         t_title = request.POST.get('t_title')
@@ -196,12 +202,15 @@ def publish(request):
         print(t_title, t_introduce)
 
         obj = models.Topic.objects.create(t_title=t_title, t_introduce=t_introduce,
-                                          t_content=t_content, t_kind=t_kind, t_uid=uid)
+                                              t_content=t_content, t_kind=t_kind, t_uid=uid)
         t_id = obj.id
 
         # 存帖子图片
         t_photo = request.FILES.get('t_photo', None)
-        t_photo_path = 'static/img/t_photo/' + str(t_id) + '_' + t_photo.name
+        if t_photo:
+            t_photo_path = 'static/img/t_photo/' + str(t_id) + '_' + t_photo.name
+        else:
+            t_photo_path = 'static/img/t_photo/white.png'
 
         if t_photo:
             # 保存文件
@@ -212,7 +221,7 @@ def publish(request):
             f.close()
 
         # 吧图片路径存入数据库
-        models.Topic.objects.filter(id=t_id).update(t_photo='/' + t_photo_path)
+        models.Topic.objects.filter(id=t_id).update(t_photo='/'+t_photo_path)
 
         return redirect('/single/' + str(t_id))
 
@@ -234,7 +243,10 @@ def single(request, tid):
         t_photo = topic.t_photo
         t_uid = topic.t_uid
         t_introduce = topic.t_introduce
-        uid = request.session['uid']
+        if request.session.get('uid') is not None:
+            uid = request.session['uid']
+        else:
+            uid = None
         admin_uid = request.session.get('admin_uid')
 
         response = {
@@ -274,7 +286,14 @@ def single(request, tid):
         # 删除回复，管理员才可以删除
         p_type = request.POST.get('type')
         print(p_type)
+        return HttpResponse('<h1>nmd，wsm</h1>')
         if p_type == 'delete':
+            # if request.session.get('uid') is None:
+            # return redirect('/login/')
+            # if request.session.get('uid') != request.POST.get('r_id'):
+            #
+            # change
+
             response = {'msg': '', 'status': False}
             r_id = request.POST.get('r_id')
             models.Reply.objects.filter(id=r_id).delete()
@@ -282,12 +301,12 @@ def single(request, tid):
             return HttpResponse(json.dumps(response))
 
         if not uid:
-            return redirect('/login')
+            return redirect('/login/')
         # 进行回复
         r_content = request.POST.get('r_content')
 
         # 提交数据库
-        obj = models.Reply.objects.create(r_tid=tid, r_uid=uid, r_content=r_content)
+        obj = models.Reply.objects.create(r_tid=tid,r_uid=uid,r_content=r_content)
 
         r_id = str(obj.id)
         r_photo = request.FILES.get('r_photo')
@@ -302,7 +321,7 @@ def single(request, tid):
             f.close()
 
         # 吧图片路径存入数据库
-        models.Reply.objects.filter(id=r_id).update(r_photo='/' + r_photo_path)
+        models.Reply.objects.filter(id=r_id).update(r_photo='/'+r_photo_path)
         return redirect('/single/' + tid)
 
 
@@ -454,36 +473,9 @@ def single_an(request, aid):
         return render(request, 'single-an.html', response)
 
 
-# 推荐函数
-'''
-def recommend(user_att):
-    global count_1_1, count_2_1
-    W1 = np.loadtxt("layer1_W.csv", delimiter=",")
-    W2 = np.loadtxt("layer2_W.csv", delimiter=",")
-    # 获取各层数量
-    ip_len = W1[0].__len__()
-    layer1_len = W1.__len__()
-    layer2_len = W2.__len__()
-    layer0 = [0] * ip_len
-    layer1 = [0] * layer1_len
-    layer2 = [0] * ip_len
-    # 进行计算
-    count_0 = 0
-    for i in user_att:
-        layer0[count_0] = i
-        count_0 += 1
-        count_1_1 = 0
-    for x in layer1:
-        count_1 = 0
-        count_1_1 += 0
-        for y in layer0:
-            x = y * W1[count_1_1][count_1]
-            count_1 += 1
-        count_2_1 = 0
-    for x in layer2:
-        count_2 = 0
-        count_2_1 += 0
-        for y in layer0:
-            x = y * W2[count_2_1][count_2]
-            count_2 += 1
-'''
+def error(request):
+    return render(request, 'error.html')
+
+
+def cannotdelete(request):
+    return render(request, 'cannotdelete.html')

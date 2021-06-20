@@ -34,39 +34,6 @@
     <script src="/static/js/jquery.prettyPhoto.js"></script>
     <script src="/static/js/jquery.flexslider.js"></script>
     <script src="/static/js/jquery.custom.js"></script>
-    <script language="javascript" type="text/javascript">
-    $(function(){
-        $d = $("#editor")[0].contentWindow.document;
-        $d.designMode="on";
-        $d.contentEditable= true;
-        $d.open();
-        $d.close();
-        $("body", $d).append("<div></div>");
-
-
-
-    });
-    function underline(){
-             var doc=document.getElementById('editor').contentWindow
-             doc.document.execCommand('InsertHorizontalRule',false,null)
-    }
-    function preview(){
-            // 获取iframe的body内容，用于显示或者插入到数据库
-            alert($('#editor').contents().find('body').html());
-            $('#preview_area').html($('#editor').contents().find('body').html());
-        };
-    function insert(){
-            // 在iframe中插入一张图片
-            var img = '<img src="' + $('#path').val() +'" />';
-            $("body", $d).append(img);
-        }
-    //设置选定的文本为粗体/正常
-    function setBold() {
-    var win=document.getElementById("editor").contentWindow;
-    win.document.execCommand("Bold",false,null);
-    win.focus();
-    }
-    </script>
 </head>
 
 <body class="home" style="font-size: 18px">
@@ -106,15 +73,7 @@
             <th valign="top">帖子内容</th>
             <td>
                 <div class="body_count">
-                    <p>
-                        <input type="button" id="bBtn" value="B" style="font-weight:bold" onclick="setBold();" />
-                         <input type="button" id="bBtn1" value="B" style="font-weight:bold" onclick="preview();" />
-                         <input type="button" id="bBtn2" value="B" style="font-weight:bold" onclick="insert();" />
-                          <input type="button" id="bBtn3" value="B" style="font-weight:bold" onclick="underline();" />
-                    </p>
-                    <p>
-                        <iframe id="editor" width="600px" height="400px" style="width: 700px;" cols="62" rows="20" name="t_content"></iframe>
-                    </p>
+                    <textarea style="width: 700px;" cols="62" rows="20" name="t_content"></textarea>
                 </div>
             </td>
         </tr>

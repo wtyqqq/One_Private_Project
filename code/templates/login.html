@@ -64,7 +64,7 @@
     </script>
 </head>
 
-<body class="home" >
+<body class="home">
 <!-- Color Bars (above header)-->
 <div class="color-bar-1"></div>
 <div class="color-bar-2 color-bg"></div>
@@ -84,38 +84,11 @@
                                                       size="16" type="password"
                                                       placeholder="密码">
             </div>
-            <div class="input-prepend">
-                <span class="add-on" >验证码：<input style="width: 200px" class="span2" id="ckc"
-                                                      size="16" type="ccode"
-                                                      placeholder=" 请输入验证码">
-
-                    <canvas width="100" height="40" id="verifyCanvas"></canvas>
-                    <img id="code_img">
-                </span>
-            </div>
             <div id="register" >
 
                 <div v-if="displa">
                     <div class="input-prepend" >
-                        <span class="add-on" id="sex">
-                            <select>
-                              <option value="男">男</option>
-                              <option value="女">女</option>
-                            </select>
-                        </span>
-                    </div>
-                    <div class="input-prepend" >
-                        <span class="add-on">地区：</span><input style="width: 200px" class="span2" id="area"
-                                                            size="16" type="str"
-                                                            placeholder="北京">
-                    </div>
-                    <div class="input-prepend" >
-                        <span class="add-on">电子邮箱：</span><input style="width: 200px" class="span2" id="e-mail"
-                                                            size="16" type="str"
-                                                            placeholder="qq.com">
-                    </div>
-                    <div class="input-prepend" >
-                        <span class="add-on">年龄：</span><input style="width: 200px" class="span2" id="age"
+                        <span class="add-on">yzytql：</span><input style="width: 200px" class="span2" id="name"
                                                             size="16" type="str"
                                                             placeholder="昵称">
                     </div>
@@ -132,7 +105,7 @@
                     <button @click="clic" v-if='!displa'>注册
                     </button>
                     <button id="register-button" style="margin-right: 20px;margin-left: 20px;" class="btn btn-large btn-inverse"
-                            type="submit" onclick="a()" v-if="displa">注册
+                            type="submit" v-if="displa">注册
                     </button>
                 </div>
             </div>
@@ -169,7 +142,6 @@
 <div id="toTop" class="hidden-phone hidden-tablet">回到顶端</div>
 
 <script>
-
     const app=new Vue({
         el:'#register',
         data:{
@@ -185,15 +157,12 @@
 
     })
     $('#login-button').click(function () {
-        console.log('message')
        var uid = $('#uid').val();
-        var ckc = $('#ckc').val();
        var pwd = $('#pwd').val();
-
        $.ajax({
             url: window.location.href,
             type: "POST",
-            data: {'type': 'login','uid': uid, 'pwd': pwd,'ckc':ckc},
+            data: {'type': 'login','uid': uid, 'pwd': pwd},
             beforeSend: function (xhr, settings) {
                 xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");    // csrf
             },
@@ -206,21 +175,13 @@
         });
     });
 
-    function a() {
-        console.log('message')
+    $('#register-button').click(function () {
        var uid = $('#uid').val();
        var pwd = $('#pwd').val();
-       var email = $('#e-mail').val();
-       var age = $('#age').val();
-       var area = $('#area').val();
-       var sex = $('#sex').val();
-        var ckc=$('#ckc').val();
-        var ckcc=c;
-
        $.ajax({
             url: window.location.href,
             type: "POST",
-            data: {'type': 'register','uid': uid, 'pwd': pwd,'email':email,'age':age,'area':area,'sex':sex,ckc:ckc,'ckcc':ckcc},
+            data: {'type': 'register','uid': uid, 'pwd': pwd},
             beforeSend: function (xhr, settings) {
                 xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");    // csrf
             },
@@ -231,83 +192,8 @@
                 else window.location.href="/home";
             }
         });
-    };
-    b=drawCode()
-    var c =""
-    for(let i=0;i<b.length;i++){
-        c+=b[i]
-    }
-    function drawCode() {
-     const nums = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
-'y', 'z'];
-    var canvas = document.getElementById("verifyCanvas");  //获取HTML端画布
-    var context = canvas.getContext("2d");                 //获取画布2D上下文
-    context.fillStyle = "cornflowerblue";                  //画布填充色
-    context.fillRect(0, 0, canvas.width, canvas.height);   //清空画布
-    context.fillStyle = "black";                           //设置字体颜色
-    context.font = "30px Arial";                           //设置字体
-    var rand = new Array();
-    var x = new Array();
-    var y = new Array();
-    for (let i = 0; i < 5; i++) {
-        rand[i] = nums[Math.floor(Math.random() * nums.length)]
-        x[i] = i * 16 + 10;
-        y[i] = Math.random() * 20 + 20;
-        context.fillText(rand[i], x[i], y[i]);
-    }
-    //画3条随机线
-    for (var i = 0; i < 3; i++) {
-        drawline(canvas, context);
-    }
-    // 画30个随机点
-    for (var i = 0; i < 30; i++) {
-        drawDot(canvas, context);
-    }
-    convertCanvasToImage(canvas)
-    return rand
-}
-console.log(a);
-// 随机线
-function drawline(canvas, context) {
-    context.moveTo(Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height));             //随机线的起点x坐标是画布x坐标0位置，y坐标是画布高度的随机数
-    context.lineTo(Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height));  //随机线的终点x坐标是画布宽度，y坐标是画布高度的随机数
-    context.lineWidth = 0.5;                                                  //随机线宽
-    context.strokeStyle = 'rgba(50,50,50,0.3)';                               //随机线描边属性
-    context.stroke();                                                         //描边，即起点描到终点
-}
-// 随机点(所谓画点其实就是画1px像素的线，方法不再赘述)
-function drawDot(canvas, context) {
-    var px = Math.floor(Math.random() * canvas.width);
-    var py = Math.floor(Math.random() * canvas.height);
-    context.moveTo(px, py);
-    context.lineTo(px + 1, py + 1);
-    context.lineWidth = 0.2;
-    context.stroke();
+    });
 
-}
-// 绘制图片
-function convertCanvasToImage(canvas) {
-    document.getElementById("verifyCanvas").style.display = "none";
-    var image = document.getElementById("code_img");
-    image.src = canvas.toDataURL("image/png");
-    return image;
-
-}
-
-// 点击图片刷新
-document.getElementById('code_img').onclick = function () {
-    $('#verifyCanvas').remove();
-    $('#ckc').after('<canvas width="100" height="40" id="verifyCanvas"></canvas>')
-    ;
-    drawCode();
-    b=drawCode()
-    var c =""
-    for(let i=0;i<b.length;i++){
-        c+=b[i]
-    }
-    console.log(c);
-}
 </script>
 
 </body>
