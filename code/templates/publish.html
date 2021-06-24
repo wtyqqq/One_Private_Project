@@ -2,7 +2,7 @@
 <!--<html xmlns="http://www.w3.org/1999/xhtml">-->
 <div style="min-width: 1200px;min-height: 800px ;">
     
-</style>>
+</style>
     
 </style>
 <head>
@@ -34,14 +34,15 @@
     <script src="/static/js/jquery.prettyPhoto.js"></script>
     <script src="/static/js/jquery.flexslider.js"></script>
     <script src="/static/js/jquery.custom.js"></script>
+    <script language="javascript" type="text/javascript">
+
+    </script>
 </head>
 
 <body class="home" style="font-size: 18px">
 
 <div class="color-bar-1"></div>
 <div class="color-bar-2 color-bg"></div>
-
-
 <h3>发帖</h3>
 <form accept-charset="UTF-8" action="/publish/" class="publish" id="new_topic" method="post"  enctype="multipart/form-data">
     {% csrf_token %}
@@ -73,7 +74,7 @@
             <th valign="top">帖子内容</th>
             <td>
                 <div class="body_count">
-                    <textarea style="width: 700px;" cols="62" rows="20" name="t_content"></textarea>
+                        <textarea width="600px" height="400px" style="width: 700px;resize: none" cols="62" rows="20" name="t_content"></textarea>
                 </div>
             </td>
         </tr>

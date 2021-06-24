@@ -46,11 +46,12 @@
         <!-- 左上角图片和logo -->
         <div class="span5 logo" style="width: 250px">
             <!--            <a href="index.htm"><img src="img/piccolo-logo.png" alt=""/></a>-->
-            <h5 style="font-size: 28px">一 个 论 坛</h5>
+            <h5 style="font-size: 28px">芜 湖 论 坛</h5>
         </div>
 
         <!-- 搜索框-->
-        <form action="/all-0-0-0" method="post" style="margin-left: 0; width: 350px;" class="span5 logo navbar-form navbar-left">
+        <form action="/all-0-0-0" method="post" style="margin-left: 0; width: 350px;"
+              class="span5 logo navbar-form navbar-left">
             {% csrf_token %}
             <div style="float: left;" class="form-group">
                 <input name="keys" type="text" class="form-control" placeholder="请输入搜索内容">
@@ -66,14 +67,13 @@
                     <li><a href="/home">主页</a></li>
                     <li><a href="/publish">发帖</a></li>
                     <li class="dropdown active">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="page-full-width.htm">看帖 <b
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">看帖 <b
                                 class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="/all-0-0-0">全部帖子</a></li>
-                            <li><a href="/all-1-0-0">军事</a></li>
-                            <li><a href="/all-2-0-0">美食</a></li>
-                            <li><a href="/all-3-0-0">汽车</a></li>
-                            <li><a href="/all-4-0-0">IT</a></li>
+                            {% for kind in kinds %}
+                                <li><a href="/all-{{ kind.id }}-0-0">{{ kind.k_name }}</a></li>
+                            {% endfor %}
                         </ul>
                     </li>
                     {% if uid %}
@@ -123,9 +123,11 @@
                 <li class="active"><a href="/all-0-{{ reply_limit }}-{{ time_limit }}" class="all">全部</a></li>
                 {% for k in kinds %}
                     {% if kid == k.id %}
-                        <li><a href="/all-{{ k.id }}-{{ reply_limit }}-{{ time_limit }}" class="active illustration">{{ k.k_name }}</a></li>
+                        <li><a href="/all-{{ k.id }}-{{ reply_limit }}-{{ time_limit }}"
+                               class="active illustration">{{ k.k_name }}</a></li>
                     {% else %}
-                        <li><a href="/all-{{ k.id }}-{{ reply_limit }}-{{ time_limit }}" class="illustration">{{ k.k_name }}</a></li>
+                        <li><a href="/all-{{ k.id }}-{{ reply_limit }}-{{ time_limit }}"
+                               class="illustration">{{ k.k_name }}</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -153,7 +155,8 @@
                     {% for t in topics %}
                         <li class="span3 gallery-item" data-id="id-1" data-type="illustration">
                             <a href="/single/{{ t.id }}"><img src="{{ t.t_photo }}" alt="Gallery"></a>
-                            <span class="project-details"><a href="/single/{{ t.id }}">{{ t.t_title }}</a>{{ t.t_introduce }}</span>
+                            <span class="project-details"><a
+                                    href="/single/{{ t.id }}">{{ t.t_title }}</a>{{ t.t_introduce }}</span>
                         </li>
                     {% endfor %}
 
@@ -161,16 +164,16 @@
             </div>
 
             <!-- 页面 -->
-{#            <div class="pagination">#}
-{#                <ul>#}
-{#                    <li class="active"><a href="#">Prev</a></li>#}
-{#                    <li class="active"><a href="#">1</a></li>#}
-{#                    <li><a href="#">2</a></li>#}
-{#                    <li><a href="#">3</a></li>#}
-{#                    <li><a href="#">4</a></li>#}
-{#                    <li><a href="#">Next</a></li>#}
-{#                </ul>#}
-{#            </div>#}
+            {#            <div class="pagination">#}
+            {#                <ul>#}
+            {#                    <li class="active"><a href="#">Prev</a></li>#}
+            {#                    <li class="active"><a href="#">1</a></li>#}
+            {#                    <li><a href="#">2</a></li>#}
+            {#                    <li><a href="#">3</a></li>#}
+            {#                    <li><a href="#">4</a></li>#}
+            {#                    <li><a href="#">Next</a></li>#}
+            {#                </ul>#}
+            {#            </div>#}
 
         </div>
 
@@ -184,7 +187,7 @@
         <div style="margin-top: 30px" class="row">
             <div class="span12 footer-col footer-sub">
                 <div class="row no-margin">
-                    <div class="span6"><span class="left">一个论坛</span>
+                    <div class="span6"><span class="left">芜湖论坛</span>
                     </div>
                     <div class="span6">
                             <span class="right">
@@ -206,20 +209,20 @@
 <script>
     $('#tuichu').click(function () {
         $.ajax({
-             url: window.location.href,
-             type: "POST",
-             data: {'type': 'logout','key':'False'},
-             beforeSend: function (xhr, settings) {
+            url: window.location.href,
+            type: "POST",
+            data: {'type': 'logout', 'key': 'False'},
+            beforeSend: function (xhr, settings) {
                 xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");    // csrf
             },
-             success: function (data) {
-                 // data是服务器端返回的字符串
-                 var dic = JSON.parse(data)
-                 if (!dic.status) alert(JSON.parse(data).msg);
-                 else window.location.href="/home";
-             }
-         });
-        })
+            success: function (data) {
+                // data是服务器端返回的字符串
+                var dic = JSON.parse(data)
+                if (!dic.status) alert(JSON.parse(data).msg);
+                else window.location.href = "/home";
+            }
+        });
+    })
 </script>
 </body>
 </html>

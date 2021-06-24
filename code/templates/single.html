@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml",>
-<div style="min-height: 800px;min-width: 1200px;"> 
-</style> >
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>帖子</title>
@@ -49,7 +47,7 @@
 
         <!-- 左上角图片和logo -->
         <div class="span5 logo" style="width: 250px">
-            <h5 style="font-size: 28px">一 个 论 坛</h5>
+            <h5 style="font-size: 28px">芜 湖 论 坛</h5>
         </div>
 
         <!-- 导航栏 -->
@@ -64,10 +62,10 @@
                                 class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="/all-0-0-0">全部帖子</a></li>
-                            <li><a href="/all-1-0-0">debug</a></li>
-                            <li><a href="/all-2-0-0">llhtql</a></li>
-                            <li><a href="/all-3-0-0">wtytql</a></li>
-                            <li><a href="/all-4-0-0">yzytql</a></li>
+                            <li><a href="/all-1-0-0">军事</a></li>
+                            <li><a href="/all-2-0-0">美食</a></li>
+                            <li><a href="/all-3-0-0">汽车</a></li>
+                            <li><a href="/all-4-0-0">IT</a></li>
                         </ul>
                     </li>
                     {% if uid %}
@@ -106,26 +104,38 @@
     <!-- 3个结束 -->
 
     <!-- 内容 -->
-    <div class="row">
+    <div class="row ">
 
         <!-- 帖子信息 -->
         <div class="span12 gallery-single">
 
-            <div class="row" style="margin-bottom: 0">
-
-                <div class="span6">
+            <div class="row" style="margin-bottom: 0 ;position: relative">
+                    <!-- 基本信息 -->
+                <div ><h2>{{ t_title }}</h2></div>
+                    <ul class="project-info">
+                        <li><h6>发布时间:</h6> {{ t_time }}
+                        <h6 style="float: right">帖子类别: {{ t_kind }}</h6>
+                            <br/>
+                        <h6>作者:</h6> {{ t_uid }}</li>
+                    </ul>
+                <div class="span6 center" >
                     <!-- 图片 -->
                     <img src="{{ t_photo }}" class="align-left thumbnail" alt="image">
-                    <!-- 基本信息 -->
-                    <ul class="project-info">
-                        <li><h6>发布时间:</h6> {{ t_time }}</li>
-                        <li><h6>帖子类别:</h6> {{ t_kind }}</li>
-                        <li><h6>作者:</h6> {{ t_uid }}</li>
-                    </ul>
+
                 </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/><br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
 
                 <div class="span6">
-                    <h2>{{ t_title }}</h2>
+
                     <p class="lead">{{ t_introduce }}</p>
                     <p>{{ t_content }}</p>
                 </div>
@@ -141,7 +151,7 @@
         <form action="/single/{{ tid }}/" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div style="margin: 0 auto;">
-                <textarea style="width: 95%;height: 200px;" cols="62" rows="20" name="r_content"></textarea>
+                <textarea style="width: 95%;height: 200px;resize:none" cols="62" rows="20" name="r_content "></textarea>
             </div>
             图片：
             <input type="file" name="r_photo">
@@ -162,10 +172,8 @@
                                 <span style="float: right;">{{ r.r_time }}</span>&nbsp;
 {#                                <a style="float: right;margin-right: 10px">回复</a>#}
                                 {% if admin_uid %}
-
-                                {% endif %}
                                 <a iddd="{{ r.r_id }}" onclick="deleter(this);" style="float: right;margin-right: 10px">删除</a>
-                                <img style="width: 50px;height: 50px;" src="{{ r.r_photo }}">
+                                {% endif %}
                             </li>
                         {% endfor %}
                     </ul>
@@ -184,7 +192,7 @@
         <div style="margin-top: 30px" class="row">
             <div class="span12 footer-col footer-sub">
                 <div class="row no-margin">
-                    <div class="span6"><span class="left">一个论坛</span>
+                    <div class="span6"><span class="left">芜湖论坛</span>
                     </div>
                     <div class="span6">
                             <span class="right">
@@ -225,5 +233,4 @@
     }
 </script>
 </body>
-</div>
 </html>

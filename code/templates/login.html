@@ -2,7 +2,7 @@
 <!--<html xmlns="http://www.w3.org/1999/xhtml">-->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>论坛</title>
+    <title>芜湖论坛</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- 样式-->
@@ -64,7 +64,7 @@
     </script>
 </head>
 
-<body class="home">
+<body class="home" >
 <!-- Color Bars (above header)-->
 <div class="color-bar-1"></div>
 <div class="color-bar-2 color-bg"></div>
@@ -84,28 +84,52 @@
                                                       size="16" type="password"
                                                       placeholder="密码">
             </div>
+            <div class="input-prepend">
+                <span class="add-on" >验证码：<input style="width: 200px" class="span2" id="ckc"
+                                                      size="16" type="ccode"
+                                                      placeholder=" 请输入验证码">
+
+                    <canvas width="100" height="40" id="verifyCanvas"></canvas>
+                    <img id="code_img">
+                </span>
+            </div>
             <div id="register" >
 
                 <div v-if="displa">
                     <div class="input-prepend" >
-                        <span class="add-on">yzytql：</span><input style="width: 200px" class="span2" id="name"
-                                                            size="16" type="str"
-                                                            placeholder="昵称">
+                        <span class="add-on" id="sex">
+                            <select>
+                              <option value="男">男</option>
+                              <option value="女">女</option>
+                            </select>
+                        </span>
                     </div>
                     <div class="input-prepend" >
-                        <span class="add-on">yzytql：</span><input style="width: 200px" class="span2" id="name"
+                        <span class="add-on">地区：</span><input style="width: 200px" class="span2" id="area"
+                                                            size="16" type="str"
+                                                            placeholder="北京">
+                    </div>
+                    <div class="input-prepend" >
+                        <span class="add-on">电子邮箱：</span><input style="width: 200px" class="span2" id="e-mail"
+                                                            size="16" type="str"
+                                                            placeholder="qq.com">
+                    </div>
+                    <div class="input-prepend" >
+                        <span class="add-on">年龄：</span><input style="width: 200px" class="span2" id="age"
                                                             size="16" type="str"
                                                             placeholder="昵称">
                     </div>
                 </div>
 
                 <div style="width: 300px;padding: 20px;margin: 0 auto;">
-                    <button id="login-button" style="margin-right: 20px;margin-left: 20px;" class="btn btn-large" type="submit">登录
+                    <button id="login-button" style="margin-right: 20px;margin-left: 20px;" class="btn btn-large" type="submit" v-if='!displa' onclick="logina()">登录
                     </button>
-                    <button @click="clic" v-if='!displa'>注册
+                    <button style="margin-right: 20px;margin-left: 20px;" class="btn btn-large btn-inverse" @click="clic" v-if='!displa'>注册展开
+                    </button>
+                    <button style="margin-right: 20px;margin-left: 20px;" class="btn btn-large" type="submit" @click="clica" v-if='displa' >登录展开
                     </button>
                     <button id="register-button" style="margin-right: 20px;margin-left: 20px;" class="btn btn-large btn-inverse"
-                            type="submit" v-if="displa">注册
+                            type="submit" onclick="a()" v-if="displa">注册
                     </button>
                 </div>
             </div>
@@ -121,13 +145,13 @@
         <div style="margin-top: 30px" class="row">
             <div class="span12 footer-col footer-sub">
                 <div class="row no-margin">
-                    <div class="span6"><span class="left">一个论坛</span>
+                    <div class="span6"><span class="left">芜湖论坛</span>
                     </div>
                     <div class="span6">
                             <span class="right">
-                            <a href="#">主页</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">选项1</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
-                                    href="#">页面</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
-                                    href="#">联系我们</a>
+                            <a href="http://www.4399.com/">主页</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
+                                    href="http://www.4399.com/">页面</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
+                                    href="http://www.4399.com/">联系我们</a>
                             </span>
                     </div>
                 </div>
@@ -142,6 +166,7 @@
 <div id="toTop" class="hidden-phone hidden-tablet">回到顶端</div>
 
 <script>
+
     const app=new Vue({
         el:'#register',
         data:{
@@ -152,17 +177,24 @@
             clic(){
                 this.displa=true
                 console.log('message');
+            },
+            clica(){
+                this.displa=false
+                console.log('message');
             }
         }
 
     })
-    $('#login-button').click(function () {
+function logina() {
+        console.log('message')
        var uid = $('#uid').val();
+        var ckc = $('#ckc').val().toLowerCase();
        var pwd = $('#pwd').val();
+
        $.ajax({
             url: window.location.href,
             type: "POST",
-            data: {'type': 'login','uid': uid, 'pwd': pwd},
+            data: {'type': 'login','uid': uid, 'pwd': pwd,'ckc':ckc,'ckcc':c},
             beforeSend: function (xhr, settings) {
                 xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");    // csrf
             },
@@ -173,15 +205,23 @@
                 else window.location.href="/home";
             }
         });
-    });
+    };
 
-    $('#register-button').click(function () {
+    function a() {
+        console.log('message')
        var uid = $('#uid').val();
        var pwd = $('#pwd').val();
+       var email = $('#e-mail').val();
+       var age = $('#age').val();
+       var area = $('#area').val();
+       var sex = $('#sex').val();
+        var ckc=$('#ckc').val().toLowerCase();
+        var ckcc=c;
+
        $.ajax({
             url: window.location.href,
             type: "POST",
-            data: {'type': 'register','uid': uid, 'pwd': pwd},
+            data: {'type': 'register','uid': uid, 'pwd': pwd,'email':email,'age':age,'area':area,'sex':sex,ckc:ckc,'ckcc':ckcc},
             beforeSend: function (xhr, settings) {
                 xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");    // csrf
             },
@@ -192,8 +232,85 @@
                 else window.location.href="/home";
             }
         });
-    });
+    };
+    b=drawCode()
+    b=b.toLowerCase()
+    var c =""
+    for(let i=0;i<b.length;i++){
+        c+=b[i].toLowerCase()
+    }
+    function drawCode() {
+     const nums = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+'y', 'z'];
+    var canvas = document.getElementById("verifyCanvas");  //获取HTML端画布
+    var context = canvas.getContext("2d");                 //获取画布2D上下文
+    context.fillStyle = "cornflowerblue";                  //画布填充色
+    context.fillRect(0, 0, canvas.width, canvas.height);   //清空画布
+    context.fillStyle = "black";                           //设置字体颜色
+    context.font = "30px Arial";                           //设置字体
+    var rand = [];
+    var x = [];
+    var y = [];
+    for (let i = 0; i < 5; i++) {
+        rand[i] = nums[Math.floor(Math.random() * nums.length)]
+        x[i] = i * 16 + 10;
+        y[i] = Math.random() * 20 + 20;
+        context.fillText(rand[i], x[i], y[i]);
+    }
+    //画3条随机线
+    for (let i = 0; i < 3; i++) {
+        drawline(canvas, context);
+    }
+    // 画30个随机点
+    for (let i = 0; i < 30; i++) {
+        drawDot(canvas, context);
+    }
+    convertCanvasToImage(canvas)
+    return rand
+}
+console.log(a);
+// 随机线
+function drawline(canvas, context) {
+    context.moveTo(Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height));             //随机线的起点x坐标是画布x坐标0位置，y坐标是画布高度的随机数
+    context.lineTo(Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height));  //随机线的终点x坐标是画布宽度，y坐标是画布高度的随机数
+    context.lineWidth = 0.5;                                                  //随机线宽
+    context.strokeStyle = 'rgba(50,50,50,0.3)';                               //随机线描边属性
+    context.stroke();                                                         //描边，即起点描到终点
+}
+// 随机点(所谓画点其实就是画1px像素的线，方法不再赘述)
+function drawDot(canvas, context) {
+    var px = Math.floor(Math.random() * canvas.width);
+    var py = Math.floor(Math.random() * canvas.height);
+    context.moveTo(px, py);
+    context.lineTo(px + 1, py + 1);
+    context.lineWidth = 0.2;
+    context.stroke();
 
+}
+// 绘制图片
+function convertCanvasToImage(canvas) {
+    document.getElementById("verifyCanvas").style.display = "none";
+    var image = document.getElementById("code_img");
+    image.src = canvas.toDataURL("image/png");
+    return image;
+
+}
+
+// 点击图片刷新
+document.getElementById('code_img').onclick = function () {
+    $('#verifyCanvas').remove();
+    $('#ckc').after('<canvas width="100" height="40" id="verifyCanvas"></canvas>')
+    ;
+    drawCode();
+    b=drawCode()
+    b=b.toLowerCase()
+     c =""
+    for(let i=0;i<b.length;i++){
+        c+=b[i]
+    }
+    console.log(c);
+}
 </script>
 
 </body>

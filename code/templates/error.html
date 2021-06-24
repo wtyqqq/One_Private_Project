@@ -1,15 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>错误！</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>帖子</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS
+    ================================================== -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/static/css/prettyPhoto.css"/>
+    <link rel="stylesheet" href="/static/css/custom-styles.css">
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <link rel="stylesheet" href="/static/css/style-ie.css"/>
+    <![endif]-->
+
+    <!-- Favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/img/apple-touch-icon-114x114.png">
+
+    <!-- JS
+    ================================================== -->
+    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script src="/static/js/jquery.easing.1.3.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/js/jquery.quicksand.js"></script>
+    <script src="/static/js/jquery.custom.js"></script>
+
 </head>
-<!--
-这是yzy写的哦~~~
--->
+
 <body>
-    <a href="http://project.childishliittlecherry.top/login/">
-        用户未登录！请您登录。
-    </a>
+<div style="margin: 0 auto">
+<div class="container">
+
+    <!-- logo，导航栏 -->
+    <div class="row header">
+
+        <!-- 左上角图片和logo -->
+        <div class="span5 logo" style="width: 250px">
+            <h5 style="font-size: 28px">芜湖 论 坛</h5>
+        </div>
+    </div>
+</div>
+
+
+    <!-- 内容 -->
+ <div class="row ">
+
+        <!-- 帖子信息 -->
+        <div class="span12 gallery-single">
+            <div class="row" style="margin-bottom: 0 ;position: relative">
+                <div class="span6 center" >
+                    <!-- 图片 -->
+                    <img src="/static/img/森下下士.png" class="align-left thumbnail" alt="image">
+                </div>
+                <div class="span6" style="text-align:center">
+                    <h6 style="font-size: 30px"><strong>没登录还想看网页</strong></h6>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+<!-- 结尾部分 -->
+<div class="footer-container">
+    <div class="container">
+        <div style="margin-top: 30px" class="row">
+            <div class="span12 footer-col footer-sub">
+                <div class="row no-margin">
+                    <div class="span6"><span class="left">芜湖论坛</span>
+                    </div>
+                    <div class="span6">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 尾部结束 -->
+
+<!-- 回到顶端 -->
+<div id="toTop" class="hidden-phone hidden-tablet">回到顶端</div>
+        <script>
+		var time=4;
+		var timer=setInterval(function(){
+			if(time>0){
+				time--;
+			}else{
+				window.location.href="/login";
+				timer.clearInterval();
+			}}
+			,1000);
+        </script>
 </body>
 </html>

@@ -6,7 +6,46 @@ Created by TianYi Wang(project manager)
 
 ## 后端
 使用Django
-
+#### 数据库
+##### 用户表：User
+字段名称 | 字段类型 | 字段说明
+---|---|---
+id | int | 编号，自增，主键
+uid | vchar(16) | 用户名，唯一
+password | vchar(16) | 密码
+create_time | Date | 创建日期
+##### 帖子表：Topic
+字段名称 | 字段类型 | 字段说明
+---|---|---
+id | int | 编号，自增，主键
+t_uid | vchar(16) | 帖子作者
+t_kind | vchar(32) | 帖子类型
+create_time | Date | 帖子发布日期
+t_photo | vchar(128) | 帖子主页图，允许为空
+t_content | vchar(3000) | 帖子内容
+t_title | vchar(64) | 帖子标题
+t_introduce | vchar(256) | 帖子介绍
+recommend | boolean | 是否推荐到主页，默认false
+##### 回复表：Reply
+字段名称 | 字段类型 | 字段说明
+---|---|---
+id | int | 编号，自增，主键
+r_tid | vchar(16) | 回复的帖子
+r_uid | vchar(16) | 发表回复的人
+r_time | Date | 回复时间
+r_photo | vchar(128) | 回复图片，允许为空
+r_content | vchar(256) | 回复内容
+##### 分类表：Kind
+字段名称 | 字段类型 | 字段说明
+---|---|---
+id | int | 编号，自增，主键
+k_name | vchar(16) | 分类名称
+##### 公告表：Announcement
+字段名称 | 字段类型 | 字段说明
+---|---|---
+id | int | 编号，自增，主键
+a_title | vchar(64) | 公告名称
+a_content | vchar(3000) | 公告内容，允许为空
 ## 框架
 框架采用Django的框架
 ## 反向代理
