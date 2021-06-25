@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--<html xmlns="http://www.w3.org/1999/xhtml">-->
-<div style="min-width: 1200px;min-height: 800px ;">
+<div>
     
 </style>
     
@@ -43,6 +43,7 @@
 
 <div class="color-bar-1"></div>
 <div class="color-bar-2 color-bg"></div>
+
 <h3>发帖</h3>
 <form accept-charset="UTF-8" action="/publish/" class="publish" id="new_topic" method="post"  enctype="multipart/form-data">
     {% csrf_token %}
@@ -115,6 +116,7 @@
 
 <!-- 结尾部分 -->
 <div class="footer-container" style="height: 20%;">
+
     <div class="container">
         <div style="margin-top: 30px" class="row">
             <div class="span12 footer-col footer-sub">
@@ -123,8 +125,8 @@
                     </div>
                     <div class="span6">
                             <span class="right">
-                            <a href="#">主页</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">选项1</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
-                                    href="#">页面</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
+                           <a href="/home">主页</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="/all-0-0-0">全部</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
+                                    href="/login">登录</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
                                     href="#">联系我们</a>
                             </span>
                     </div>

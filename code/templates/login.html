@@ -77,7 +77,7 @@
 
         <!-- 左上角图片和logo -->
         <div class="span5 logo" style="width: 250px">
-            <h5 style="font-size: 28px">芜 湖</h5>
+            <h5 style="font-size: 28px">芜 湖 论 坛</h5>
         </div>
 
         <!-- 导航栏 -->
@@ -85,8 +85,8 @@
             <div class="navbar hidden-phone" style="height: 40px;">
 
                 <ul class="nav">
-                    <li class="active"><a href="/home">主页</a></li>
-                    <li><a href="/publish">发帖</a>&nbsp;</li>
+                    <li ><a  href="/home">主页</a></li>
+                    <li><a  href="/publish">发帖</a>&nbsp;</li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">看帖 <b
                                 class="caret"></b></a>
@@ -108,7 +108,7 @@
 
                         <li><a href="/login">退出</a></li>
                     {% else %}
-                        <li><a href="/login">登录</a></li>
+                        <li class="active"><a  href="/login">登录</a></li>
                     {% endif %}
 
 
@@ -124,7 +124,7 @@
                         <option value="/home">主页</option>
                         <option value="/publish">发帖</option>
                         <option value="/all-0-0-0">看帖</option>
-                        <option value="/all-0-0-0">- 全部帖子</option>
+                        <option value="/all-0-0-0">全部帖子</option>
                         {% for kind in kinds %}
                             <option value="/all-{{ kind.id }}-0-0">- {{ kind.k_name }}</option>
                         {% endfor %}
@@ -140,10 +140,8 @@
 
         </div>
     </div>
-    <!-- 3个结束 wc sb-->
-<!-- Color Bars (above header)-->
-<div class="color-bar-1"></div>
-<div class="color-bar-2 color-bg"></div>
+    <!-- 3个结束-->
+
 
 
 <div style="width: 100%;height: 60%;">
@@ -216,17 +214,17 @@
 
 
 <!-- 结尾部分 -->
-<div class="footer-container" style="height: 20%;">
+<div class="footer-container">
     <div class="container">
         <div style="margin-top: 30px" class="row">
             <div class="span12 footer-col footer-sub">
                 <div class="row no-margin">
-                    <div class="span6"><span class="left">芜湖论坛</span>
+                    <div class="span6"><span class="left">一个论坛</span>
                     </div>
                     <div class="span6">
                             <span class="right">
-                            <a href="home.html">主页</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
-                                    href="#">页面</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
+                           <a href="/home">主页</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="/all-0-0-0">全部</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
+                                    href="/login">登录</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
                                     href="#">联系我们</a>
                             </span>
                     </div>
@@ -310,7 +308,6 @@ function logina() {
         });
     };
     b=drawCode()
-    b=b.toLowerCase()
     var c =""
     for(let i=0;i<b.length;i++){
         c+=b[i].toLowerCase()

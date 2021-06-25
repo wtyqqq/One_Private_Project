@@ -50,8 +50,7 @@
         </div>
 
         <!-- 搜索框-->
-        <form action="/all-0-0-0" method="post" style="margin-left: 0; width: 350px;"
-              class="span5 logo navbar-form navbar-left">
+        <form action="/all-0-0-0" method="post" style="margin-left: 0; width: 350px;" class="span5 logo navbar-form navbar-left">
             {% csrf_token %}
             <div style="float: left;" class="form-group">
                 <input name="keys" type="text" class="form-control" placeholder="请输入搜索内容">
@@ -67,7 +66,7 @@
                     <li><a href="/home">主页</a></li>
                     <li><a href="/publish">发帖</a></li>
                     <li class="dropdown active">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">看帖 <b
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="page-full-width.htm">看帖 <b
                                 class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="/all-0-0-0">全部帖子</a></li>
@@ -91,17 +90,19 @@
                 <div class="mobile-nav-select">
                     <select onchange="window.open(this.options[this.selectedIndex].value,'_top')">
                         <option value="">导航栏</option>
-                        <option value="index.htm">主页</option>
-                        <option value="index.htm">- 全显示</option>
-                        <option value="index-gallery.htm">- 只显示帖子列表</option>
-                        <option value="index-slider.htm">- 只显示轮播图</option>
-                        <option value="features.htm">选项1</option>
-                        <option value="page-full-width.htm">页面</option>
-                        <option value="page-full-width.htm">- 全显示</option>
-                        <option value="page-right-sidebar.htm">- 右边</option>
-                        <option value="page-left-sidebar.htm">- 左边</option>
-                        <option value="page-double-sidebar.htm">- 双边</option>
-                        <option value="page-contact.htm">联系我们</option>
+                        <option value="/home">主页</option>
+                        <option value="/publish">发帖</option>
+                        <option value="/all-0-0-0">看帖</option>
+                        <option value="/all-0-0-0">- 全部帖子</option>
+                        {% for kind in kinds %}
+                            <option value="/all-{{ kind.id }}-0-0">- {{ kind.k_name }}</option>
+                        {% endfor %}
+
+                        {% if uid %}
+                        <option value="/login">退出</option>
+                        {% else %}
+                        <option value="/login">登录</option>
+                        {% endif %}
                     </select>
                 </div>
             </form>
@@ -123,11 +124,9 @@
                 <li class="active"><a href="/all-0-{{ reply_limit }}-{{ time_limit }}" class="all">全部</a></li>
                 {% for k in kinds %}
                     {% if kid == k.id %}
-                        <li><a href="/all-{{ k.id }}-{{ reply_limit }}-{{ time_limit }}"
-                               class="active illustration">{{ k.k_name }}</a></li>
+                        <li><a href="/all-{{ k.id }}-{{ reply_limit }}-{{ time_limit }}" class="active illustration">{{ k.k_name }}</a></li>
                     {% else %}
-                        <li><a href="/all-{{ k.id }}-{{ reply_limit }}-{{ time_limit }}"
-                               class="illustration">{{ k.k_name }}</a></li>
+                        <li><a href="/all-{{ k.id }}-{{ reply_limit }}-{{ time_limit }}" class="illustration">{{ k.k_name }}</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -155,8 +154,7 @@
                     {% for t in topics %}
                         <li class="span3 gallery-item" data-id="id-1" data-type="illustration">
                             <a href="/single/{{ t.id }}"><img src="{{ t.t_photo }}" alt="Gallery"></a>
-                            <span class="project-details"><a
-                                    href="/single/{{ t.id }}">{{ t.t_title }}</a>{{ t.t_introduce }}</span>
+                            <span class="project-details"><a href="/single/{{ t.id }}">{{ t.t_title }}</a>{{ t.t_introduce }}</span>
                         </li>
                     {% endfor %}
 
@@ -164,16 +162,16 @@
             </div>
 
             <!-- 页面 -->
-            {#            <div class="pagination">#}
-            {#                <ul>#}
-            {#                    <li class="active"><a href="#">Prev</a></li>#}
-            {#                    <li class="active"><a href="#">1</a></li>#}
-            {#                    <li><a href="#">2</a></li>#}
-            {#                    <li><a href="#">3</a></li>#}
-            {#                    <li><a href="#">4</a></li>#}
-            {#                    <li><a href="#">Next</a></li>#}
-            {#                </ul>#}
-            {#            </div>#}
+{#            <div class="pagination">#}
+{#                <ul>#}
+{#                    <li class="active"><a href="#">Prev</a></li>#}
+{#                    <li class="active"><a href="#">1</a></li>#}
+{#                    <li><a href="#">2</a></li>#}
+{#                    <li><a href="#">3</a></li>#}
+{#                    <li><a href="#">4</a></li>#}
+{#                    <li><a href="#">Next</a></li>#}
+{#                </ul>#}
+{#            </div>#}
 
         </div>
 
@@ -187,12 +185,12 @@
         <div style="margin-top: 30px" class="row">
             <div class="span12 footer-col footer-sub">
                 <div class="row no-margin">
-                    <div class="span6"><span class="left">芜湖论坛</span>
+                    <div class="span6"><span class="left">一个论坛</span>
                     </div>
                     <div class="span6">
                             <span class="right">
-                            <a href="/home">主页</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="/publish">发帖</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
-                                    href="#">页面</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
+                           <a href="/home">主页</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="/all-0-0-0">全部</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
+                                    href="/login">登录</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
                                     href="#">联系我们</a>
                             </span>
                     </div>
@@ -209,20 +207,20 @@
 <script>
     $('#tuichu').click(function () {
         $.ajax({
-            url: window.location.href,
-            type: "POST",
-            data: {'type': 'logout', 'key': 'False'},
-            beforeSend: function (xhr, settings) {
+             url: window.location.href,
+             type: "POST",
+             data: {'type': 'logout','key':'False'},
+             beforeSend: function (xhr, settings) {
                 xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");    // csrf
             },
-            success: function (data) {
-                // data是服务器端返回的字符串
-                var dic = JSON.parse(data)
-                if (!dic.status) alert(JSON.parse(data).msg);
-                else window.location.href = "/home";
-            }
-        });
-    })
+             success: function (data) {
+                 // data是服务器端返回的字符串
+                 var dic = JSON.parse(data)
+                 if (!dic.status) alert(JSON.parse(data).msg);
+                 else window.location.href="/home";
+             }
+         });
+        })
 </script>
 </body>
 </html>
