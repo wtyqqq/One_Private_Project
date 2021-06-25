@@ -13,7 +13,10 @@ Created by TianYi Wang(project manager)
 id | int | 编号，自增，主键
 uid | vchar(16) | 用户名，唯一
 password | vchar(16) | 密码
-create_time | Date | 创建日期
+create_time | Date | 创建日期 
+sex | bool | 用户性别
+age | int | 年龄
+e-mail | vchar(16) | 邮箱
 ##### 帖子表：Topic
 字段名称 | 字段类型 | 字段说明
 ---|---|---
